@@ -18,4 +18,4 @@ LIB_PATH="/usr/lib"
 SDKS_PATH="$HOME/.local/share/sdks"
 APPS_PATH="/opt"
 
-" >>~/.zshrc
+" | tee -a ~/.zshrc
