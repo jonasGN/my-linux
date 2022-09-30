@@ -3,7 +3,11 @@
 # TERMINAL
 # terminal with zsh
 sudo apt install -y zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+if command -v curl &>/dev/null; then
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+else
+  sudo apt install -y curl
+fi
 
 # add custom configs for zsh
 echo "
