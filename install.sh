@@ -7,18 +7,36 @@ RESET_COLOR="\e[0m"
 
 TEMP_WORK_DIR=~/my_linux_temp
 
-# update the apt list
+print_header() {
+  echo -e "${HEADER_COLOR}${1}:${RESET_COLOR}"
+}
+
+install_packages() {
+  local PACKAGES=("$@")
+
+  for PACKAGE in ${PACKAGES[@]}; do
+    sudo apt install -y $PACKAGE
+  done
+}
+
+# update the apt list before running installation script
 sudo apt update
+
+SYSTEM_PACKAGES=(
+  "amd64-microcode" # patches para correção do comportamento para processadores AMD AMD64 (non-free)
+  # "intel-microcode" # patches para correção do comportamento para processadores Intel i686 e X86-64 (non-free)
+  ""
+)
+print_header "Instalando pacotes do sistema"
+install_packages "${SYSTEM_PACKAGES[@]}"
 
 # BASIC TOOLS
 BASIC_TOOLS=(
   "git"
   "curl"
 )
-echo -e $HEADER_COLOR"Instalando pacotes básicos:"$RESET_COLOR
-for TOOL in ${BASIC_TOOLS[@]}; do
-  sudo apt install -y $TOOL
-done
+print_header "Instalando pacotes básicos"
+install_packages "${BASIC_TOOLS[@]}"
 
 # GNOME INSTALLATION CONFIG
 GNOME_PACKAGES=(
@@ -31,19 +49,15 @@ GNOME_PACKAGES=(
   "mutter"               #
   "gjs"                  # instalado junto com session
 )
-echo -e $HEADER_COLOR"Instalando pacotes gnome:"$RESET_COLOR
-for GNOME_PACKAGE in ${GNOME_PACKAGES[@]}; do
-  sudo apt install -y $GNOME_PACKAGE
-done
+print_header "Instalando pacotes do ambiente gnome"
+install_packages "${GNOME_PACKAGES[@]}"
 
 # BASIC APPS CONFIGURATIONS
-echo -e $HEADER_COLOR"Instalando pacotes e aplicações básicas"$RESET_COLOR
 BASIC_APPS=(
   "gnome-terminal" # terminal padrão
   "vlc"            # reprodutor de vídeo
   "firefox-esr"    #  navegador inicial
   "neofetch"       # informações sobre organizadas sobre a distro
 )
-for BASIC_APP in ${BASIC_APPS[@]}; do
-  sudo apt install -y $BASIC_APP
-done
+print_header "Instalando aplicações básicas"
+install_packages "${BASIC_APPS[@]}"

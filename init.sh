@@ -60,9 +60,9 @@ read -t $REBOOT_TIME -rsn1 KEY
 KEY="${KEY:-s}"
 
 if [ $KEY == "s" ] || [ $KEY == "S" ]; then
-  SLEEP_TIME=5
-  print_alert "\nO sistema será reiniciado em $SLEEP_TIME segundos... (ctrl+c para cancelar)"
-  sleep $SLEEP_TIME
+  _SLEEP_TIME=5
+  print_alert "\nO sistema será reiniciado em $_SLEEP_TIME segundos... (ctrl+c para cancelar)"
+  sleep $_SLEEP_TIME
   sudo reboot
 else
   sudo nano /etc/default/zramswap
