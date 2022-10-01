@@ -72,10 +72,10 @@ if [[ $SELECTED_GNOME_THEME != "" ]]; then
   done
 fi
 
-download_theme() {
-  local THEME=$1
-  echo -e "Fazendo o download do tema..."
-  git clone $THEME
+download_repo() {
+  local REPO=$1
+  echo - "Fazendo o download do repositório"
+  git clone $REPO
 }
 
 # TODO: install background of themes
@@ -92,18 +92,42 @@ install_orchis_theme() {
 }
 
 cd $TEMP_WORK_DIR/themes
+print_header "Instalando tema de ícone selecionado"
 case $SELECTED_GNOME_THEME in
 fluent)
-  download_theme https://github.com/vinceliuice/Fluent-gtk-theme.git
+  download_repo https://github.com/vinceliuice/Fluent-gtk-theme.git
   install_fluent_theme
   ;;
 orchis)
-  download_theme https://github.com/vinceliuice/Orchis-theme.git
+  download_repo https://github.com/vinceliuice/Orchis-theme.git
   install_orchis_theme
   ;;
 esac
 
+# ICON CONFIG
+install_fluent_icons() {
+  cd $TEMP_WORK_DIR/icons/Fluent-icon-theme
+  bash install.sh -r standard purple
+}
+
+install_tela_icons() {
+  cd $TEMP_WORK_DIR/icons/Tela-icon-theme
+  bash install.sh standard purple
+}
+
+case $SELECTED_GNOME_THEME in
+fluent)
+  download_repo https://github.com/vinceliuice/Fluent-icon-theme.git
+  install_fluent_icons
+  ;;
+orchis)
+  download_repo https://github.com/vinceliuice/Tela-icon-theme.git
+  install_tela_icons
+  ;;
+esac
+
 # SET VISUAL CONFIGS
+print_header "Carregando configurações das extensões..."
 dconf load /org/gnome/shell/extensions/ <./src/extension-settings.dconf
 # to load all uncomment this line (needs the dconf file)
 # dconf load / <./src/all-dconf-settings.dconf
