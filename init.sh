@@ -11,11 +11,11 @@ SUCCESS_COLOR="\e[32m"
 RESET_COLOR="\e[0m"
 
 print_alert() {
-  echo -e "$ALERT_COLOR$1$RESET_COLOR"
+  echo -e "${ALERT_COLOR}${1}${RESET_COLOR}"
 }
 
 print_success() {
-  echo -e "$SUCCESS_COLOR$1$RESET_COLOR"
+  echo -e "${SUCCESS_COLOR}${1}${RESET_COLOR}"
 }
 
 # CONFIRMATION

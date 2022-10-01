@@ -1,0 +1,38 @@
+[
+  {
+    "name": "user_themes",
+    "url": "https://extensions.gnome.org/extension-data/user-themegnome-shell-extensions.gcampax.github.com.v49.shell-extension.zip",
+    "version": "49",
+    "gnome_version": "42"
+  },
+  {
+    "name": "dash_to_dock",
+    "url": "https://extensions.gnome.org/extension-data/dash-to-dockmicxgx.gmail.com.v74.shell-extension.zip",
+    "version": "74",
+    "gnome_version": "42"
+  },
+  {
+    "name": "blur_my_shell",
+    "url": "https://extensions.gnome.org/extension-data/blur-my-shellaunetx.v43.shell-extension.zip",
+    "version": "43",
+    "gnome_version": "42"
+  },
+  {
+    "name": "custom_hot_corners_extended",
+    "url": "https://extensions.gnome.org/extension-data/custom-hot-corners-extendedG-dH.github.com.v22.shell-extension.zip",
+    "version": "22",
+    "gnome_version": "42"
+  },
+  {
+    "name": "native_window_placement",
+    "url": "https://extensions.gnome.org/extension-data/native-window-placementgnome-shell-extensions.gcampax.github.com.v51.shell-extension.zip",
+    "version": "51",
+    "gnome_version": "42"
+  },
+  {
+    "name": "places_status_indicator",
+    "url": "https://extensions.gnome.org/extension-data/places-menugnome-shell-extensions.gcampax.github.com.v54.shell-extension.zip",
+    "version": "54",
+    "gnome_version": "42"
+  }
+]

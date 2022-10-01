@@ -7,6 +7,9 @@ RESET_COLOR="\e[0m"
 
 TEMP_WORK_DIR=~/my_linux_temp
 
+# update the apt list
+sudo apt update
+
 # BASIC TOOLS
 BASIC_TOOLS=(
   "git"
@@ -39,58 +42,8 @@ BASIC_APPS=(
   "gnome-terminal" # terminal padrão
   "vlc"            # reprodutor de vídeo
   "firefox-esr"    #  navegador inicial
+  "neofetch"       # informações sobre organizadas sobre a distro
 )
 for BASIC_APP in ${BASIC_APPS[@]}; do
   sudo apt install -y $BASIC_APP
 done
-
-# THEME CONFIGURATIONS
-echo -n "Escolha o tema a ser instalado (fluent | orchis) [fluent]: "
-read -t 10 -r GNOME_THEME
-# default theme is `fluent`
-GNOME_THEME="${GNOME_THEME:-fluent}"
-
-sudo mkdir -p $TEMP_WORK_DIR/themes
-while [[ ! $GNOME_THEME =~ ^([fluent orchis]) ]]; do
-  echo -e $ALERT_COLOR"Não foi possível encontrar o tema informado."$RESET_COLOR
-  echo -en "Escolha entre: fluent | orchis: "
-  read -r GNOME_THEME
-done
-
-download_theme() {
-  echo -e "Fazendo o download do tema..."
-  git clone $1
-}
-
-# TODO: install background of themes
-# install fluent GTK theme
-install_fluent() {
-  cd $TEMP_WORK_DIR/themes/Fluent-gtk-theme
-  bash install.sh -t purple -s standard -i debian --tweaks round
-}
-
-# install orchis GTK theme
-install_orchis() {
-  cd $TEMP_WORK_DIR/themes/orchis-gtk-theme
-  bash install.sh -t purple -s standard --tweaks compact
-}
-
-cd $TEMP_WORK_DIR/themes
-case $GNOME_THEME in
-fluent)
-  download_theme https://github.com/vinceliuice/Fluent-gtk-theme.git
-  install_fluent
-  ;;
-orchis)
-  download_theme https://github.com/jakschu/orchis-gtk-theme.git
-  install_orchis
-  ;;
-esac
-
-# clean installation
-cd ~/my-linux
-sudo rm -r $TEMP_WORK_DIR
-
-sudo apt autoremove -y
-
-sudo reboot
