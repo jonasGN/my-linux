@@ -103,6 +103,11 @@ orchis)
   ;;
 esac
 
+# SET VISUAL CONFIGS
+dconf load /org/gnome/shell/extensions/ <./src/extension-settings.dconf
+# to load all uncomment this line (needs the dconf file)
+# dconf load / <./src/all-dconf-settings.dconf
+
 # CLEAN VISUAL FILES
 cd ~/my-linux
 print_success "Configurações visuais aplicadas com sucesso.\nLimpando vestigios de instalação..."
