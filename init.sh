@@ -24,12 +24,12 @@ print_alert "ATENÇÃO: Esse script modifica arquivos seníveis ao sistema."
 echo -n "Tem certeza que deseja continuar? (S/N): "
 read -r PROCEED
 
-while [[ ! $PROCEED =~ ^([SN]) ]]; do
+while [[ ! "$PROCEED" =~ ^([SN]) ]]; do
   echo -n "Tem certeza que deseja continuar? (S/N): "
   read -r PROCEED
 done
 
-if [ $PROCEED == "N" ]; then
+if [ "$PROCEED" == "N" ]; then
   print_success "Script encerrado com sucesso."
   exit 0
 fi
@@ -59,7 +59,7 @@ read -t $REBOOT_TIME -rsn1 KEY
 # if user do not provide any answer, use default
 KEY="${KEY:-s}"
 
-if [ $KEY == "s" ] || [ $KEY == "S" ]; then
+if [ "$KEY" == "s" ] || [ "$KEY" == "S" ]; then
   _SLEEP_TIME=5
   print_alert "\nO sistema será reiniciado em $_SLEEP_TIME segundos... (ctrl+c para cancelar)"
   sleep $_SLEEP_TIME
