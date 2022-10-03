@@ -49,7 +49,7 @@ install_extension() {
   print_success "Extensão instalada com sucesso.\n"
 }
 
-for ROW in $(cat ./src/extensions.json | jq -r '.[] | @base64'); do
+for ROW in $(cat "$LOCAL_PATH/src/extensions.json" | jq -r '.[] | @base64'); do
   _EXTENSION() {
     echo ${ROW} | base64 --decode | jq -r ${1}
   }
@@ -169,10 +169,13 @@ orchis)
 esac
 
 # CURSOR THEME INSTALLATION
-mkdir -p "$TEMP_WORK_DIR/cursor_themes"
-download_repo "https://github.com/vinceliuice/WhiteSur-cursors.git"
 print_header "Instalando tema de cursor WhiteSur"
+mkdir -p "$TEMP_WORK_DIR/cursor_themes"
+cd "$TEMP_WORK_DIR/cursor_themes"
+
+download_repo "https://github.com/vinceliuice/WhiteSur-cursors.git"
 cd "$TEMP_WORK_DIR/cursor_themes/WhiteSur-cursors"
+
 bash install.sh
 set_cursor_theme "WhiteSur-cursors"
 
