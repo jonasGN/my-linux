@@ -40,13 +40,15 @@ install_packages "${BASIC_TOOLS[@]}"
 
 # GNOME INSTALLATION CONFIG
 GNOME_PACKAGES=(
-  "gnome-session"        #
+  # "mutter"               # necessário? (acho que não)
+  "gnome-session"        # gerenciador de Sessão GNOME
   "gnome-shell"          # instalado junto com session
   "gnome-backgrounds"    # instalado junto com session
-  "gnome-applets"        #
+  "gnome-applets"        # não instalado com gnome
   "gnome-control-center" # instalado junto com session
   "gnome-tweaks"         #
-  "mutter"               #
+  "gnome-terminal"       # terminal padrão
+  "gdm3"                 # gerenciador de tela do GNOME
   "gjs"                  # instalado junto com session
 )
 print_header "Instalando pacotes do ambiente gnome"
@@ -54,10 +56,9 @@ install_packages "${GNOME_PACKAGES[@]}"
 
 # BASIC APPS CONFIGURATIONS
 BASIC_APPS=(
-  "gnome-terminal" # terminal padrão
-  "vlc"            # reprodutor de vídeo
-  "firefox-esr"    #  navegador inicial
-  "neofetch"       # informações sobre organizadas sobre a distro
+  "vlc"         # reprodutor de vídeo
+  "firefox-esr" #  navegador inicial
+  "neofetch"    # informações sobre organizadas sobre a distro
 )
 print_header "Instalando aplicações básicas"
 install_packages "${BASIC_APPS[@]}"
