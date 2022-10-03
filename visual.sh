@@ -34,17 +34,18 @@ install_extension_dependencies() {
 
 # GNOME EXTENSIONS
 install_extension() {
-  local EXTENSION_NAME="$1"
-  local EXTENSION_URL="$2"
+  local NAME="$1"
+  local URL="$2"
 
-  local EXTENSIONS_WORK_DIR="$TEMP_WORK_DIR/extensions"
-  local EXTENSION="$EXTENSIONS_WORK_DIR/$EXTENSION_NAME.zip"
+  local WORK_DIR="$TEMP_WORK_DIR/extensions"
+  local EXTENSION="$WORK_DIR/$NAME.zip"
 
-  print_header "Fazendo o download da extensão $EXTENSION_NAME"
-  curl -L --create-dirs --output $EXTENSION --url $EXTENSION_URL
+  print_header "Fazendo o download da extensão $NAME"
+  curl -L --create-dirs --output $EXTENSION --url $URL
 
   print_header "Instalando extensão"
-  gnome-extensions install "$EXTENSION"
+  local UUID=$(unzip -c $EXTENSION metadata.json | grep uuid | cut -d \" -f4)
+  gnome-extensions install "$EXTENSION" && gnome-extensions enable "$UUID"
   print_success "Extensão instalada com sucesso.\n"
 }
 
@@ -91,12 +92,31 @@ download_repo() {
   git clone $REPO
 }
 
+# enable given theme from legacy apps theme
+set_theme() {
+  local THEME="$1"
+  gsettings set org.gnome.desktop.interface gtk-theme "$THEME"
+}
+
+# enable given icon theme
+set_icon_theme() {
+  local ICON_THEME="$1"
+  gsettings set org.gnome.desktop.interface icon-theme "$ICON_THEME"
+}
+
+# enable cursor given theme
+set_cursor_theme() {
+  local CURSOR_THEME="$1"
+  gsettings set org.gnome.desktop.interface cursor-theme "$CURSOR_THEME"
+}
+
 # TODO: install background of themes
 # install fluent GTK theme
 install_fluent_theme() {
   print_header "Instalando tema Fluent"
   cd "$TEMP_WORK_DIR/themes/Fluent-gtk-theme"
   bash install.sh -t purple -s standard -i debian --tweaks round
+  set_theme "Fluent-round-purple-Dark"
 }
 
 # install orchis GTK theme
@@ -104,6 +124,7 @@ install_orchis_theme() {
   print_header "Instalando tema Orchis"
   cd "$TEMP_WORK_DIR/themes/Orchis-theme"
   bash install.sh -t purple -s standard --tweaks compact
+  set_theme "Orchis-Purple-Dark"
 }
 
 cd "$TEMP_WORK_DIR/themes"
@@ -125,12 +146,14 @@ install_fluent_icons() {
   print_header "Instalando tema de ícones Fluent"
   cd "$TEMP_WORK_DIR/icons/Fluent-icon-theme"
   bash install.sh -r standard purple
+  set_icon_theme "Fluent-purple-dark"
 }
 
 install_tela_icons() {
   print_header "Instalando tema de ícones Tela"
   cd "$TEMP_WORK_DIR/icons/Tela-icon-theme"
   bash install.sh standard purple
+  set_icon_theme "Tela-purple-dark"
 }
 
 cd "$TEMP_WORK_DIR/icons"
@@ -144,6 +167,14 @@ orchis)
   install_tela_icons
   ;;
 esac
+
+# CURSOR THEME INSTALLATION
+mkdir -p "$TEMP_WORK_DIR/cursor_themes"
+download_repo "https://github.com/vinceliuice/WhiteSur-cursors.git"
+print_header "Instalando tema de cursor WhiteSur"
+cd "$TEMP_WORK_DIR/cursor_themes/WhiteSur-cursors"
+bash install.sh
+set_cursor_theme "WhiteSur-cursors"
 
 # SET VISUAL CONFIGS
 print_header "Carregando configurações das extensões..."
