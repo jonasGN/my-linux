@@ -23,6 +23,15 @@ print_success() {
   echo -e "${SUCCESS_COLOR}${1}${RESET_COLOR}"
 }
 
+install_extension_dependencies() {
+  local DEPENDENCIES=("$@")
+
+  if [[ $(echo "${#DEPENDENCIES[@]}") -gt 0 ]]; then
+    print_header "Instalando dependências da extensão"
+    sudo apt install -y ${DEPENDENCIES[*]}
+  fi
+}
+
 # GNOME EXTENSIONS
 install_extension() {
   local EXTENSION_NAME="$1"
@@ -34,7 +43,7 @@ install_extension() {
   print_header "Fazendo o download da extensão $EXTENSION_NAME"
   curl -L --create-dirs --output $EXTENSION --url $EXTENSION_URL
 
-  print_header "Instalando extensão $EXTENSION_NAME"
+  print_header "Instalando extensão"
   gnome-extensions install "$EXTENSION"
   print_success "Extensão instalada com sucesso.\n"
 }
@@ -48,9 +57,13 @@ for ROW in $(cat ./src/extensions.json | jq -r '.[] | @base64'); do
   _EXTENSION_URL=$(_EXTENSION '.url')
   _EXTENSION_VERSION=$(_EXTENSION '.version')
   _EXTENSION_GNOME_VERSION=$(_EXTENSION '.gnome_version')
+  _EXTENSION_DEPENDENCIES+=($(_EXTENSION '.dependencies[]'))
 
   _EXTENSION_FULLNAME="${_EXTENSION_NAME}_gnome${_EXTENSION_GNOME_VERSION}_v${_EXTENSION_VERSION}"
 
+  echo -e "name: $_EXTENSION_NAME\nversion: $_EXTENSION_VERSION\ndependencies: $_EXTENSION_DEPENDENCIES\n"
+
+  install_extension_dependencies "${_EXTENSION_DEPENDENCIES[@]}"
   install_extension "$_EXTENSION_FULLNAME" "$_EXTENSION_URL"
 done
 
