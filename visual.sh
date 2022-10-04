@@ -26,7 +26,7 @@ elif [[ "$SELECTED_GNOME_THEME" == "" ]]; then
   print_header "\nProsseguindo com tema padrão: ($SELECTED_GNOME_THEME)"
 fi
 
-print_alert "\nTema selecionado = $SELECTED_GNOME_THEME"
+print_header "\nTema selecionado = $SELECTED_GNOME_THEME"
 
 # theme installation script
 bash "$LOCAL_DIR/src/visual/themes.sh" "$SELECTED_GNOME_THEME"
@@ -36,6 +36,9 @@ bash "$LOCAL_DIR/src/visual/icons.sh" "$SELECTED_GNOME_THEME"
 
 # cursors theme installation script
 bash "$LOCAL_DIR/src/visual/cursors.sh"
+
+# wallpaper config script
+bash "$LOCAL_DIR/src/visual/wallpaper.sh" "$SELECTED_GNOME_THEME"
 
 # other visual configs stuff
 bash "$LOCAL_DIR/src/visual/others.sh"
