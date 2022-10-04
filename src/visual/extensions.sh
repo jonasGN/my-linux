@@ -1,11 +1,8 @@
 #!/bin/bash
 
 # SOURCES
-source ../setup.sh
-source ../beutify.sh
-
-# VARIABLES
-LOCAL_PATH=$(pwd)
+source src/setup.sh
+source src/beutify.sh
 
 install_extension_dependencies() {
   local DEPENDENCIES=("$@")
@@ -31,7 +28,7 @@ install_extension() {
   print_success "Extensão instalada com sucesso.\n"
 }
 
-for ROW in $(cat "../extensions.json" | jq -r '.[] | @base64'); do
+for ROW in $(cat "$ASSETS_DIR/extensions.json" | jq -r '.[] | @base64'); do
   _EXTENSION() {
     echo ${ROW} | base64 --decode | jq -r ${1}
   }

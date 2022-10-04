@@ -2,6 +2,8 @@
 
 # this file includes variables and snipets for setup the enviroment
 
+LOCAL_DIR=$(pwd)
+ASSETS_DIR="$LOCAL_DIR/assets"
 WORK_DIR=~/my-linux-temp
 EXTENSIONS_WORK_DIR="$WORK_DIR/extensions"
 THEMES_WORK_DIR="$WORK_DIR/themes"
