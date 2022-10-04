@@ -1,51 +1,51 @@
 [
   {
     "name": "user_themes",
-    "url": "https://extensions.gnome.org/extension-data/user-themegnome-shell-extensions.gcampax.github.com.v49.shell-extension.zip",
-    "version": "49",
-    "gnome_version": "42",
+    "url": "https://extensions.gnome.org/extension-data/user-themegnome-shell-extensions.gcampax.github.com.v50.shell-extension.zip",
+    "version": "50",
+    "gnome_version": "43",
     "dependencies": []
   },
   {
     "name": "dash_to_dock",
     "url": "https://extensions.gnome.org/extension-data/dash-to-dockmicxgx.gmail.com.v74.shell-extension.zip",
     "version": "74",
-    "gnome_version": "42",
+    "gnome_version": "43",
     "dependencies": []
   },
   {
     "name": "blur_my_shell",
-    "url": "https://extensions.gnome.org/extension-data/blur-my-shellaunetx.v43.shell-extension.zip",
-    "version": "43",
-    "gnome_version": "42",
+    "url": "https://extensions.gnome.org/extension-data/blur-my-shellaunetx.v44.shell-extension.zip",
+    "version": "44",
+    "gnome_version": "43",
     "dependencies": []
   },
   {
     "name": "custom_hot_corners_extended",
     "url": "https://extensions.gnome.org/extension-data/custom-hot-corners-extendedG-dH.github.com.v22.shell-extension.zip",
     "version": "22",
-    "gnome_version": "42",
+    "gnome_version": "43",
     "dependencies": []
   },
   {
     "name": "native_window_placement",
-    "url": "https://extensions.gnome.org/extension-data/native-window-placementgnome-shell-extensions.gcampax.github.com.v51.shell-extension.zip",
-    "version": "51",
-    "gnome_version": "42",
+    "url": "https://extensions.gnome.org/extension-data/native-window-placementgnome-shell-extensions.gcampax.github.com.v52.shell-extension.zip",
+    "version": "52",
+    "gnome_version": "43",
     "dependencies": []
   },
   {
     "name": "places_status_indicator",
-    "url": "https://extensions.gnome.org/extension-data/places-menugnome-shell-extensions.gcampax.github.com.v54.shell-extension.zip",
-    "version": "54",
-    "gnome_version": "42",
+    "url": "https://extensions.gnome.org/extension-data/places-menugnome-shell-extensions.gcampax.github.com.v55.shell-extension.zip",
+    "version": "55",
+    "gnome_version": "43",
     "dependencies": []
   },
   {
     "name": "top_hat",
     "url": "https://extensions.gnome.org/extension-data/tophatfflewddur.github.io.v4.shell-extension.zip",
     "version": "4",
-    "gnome_version": "42",
+    "gnome_version": "43",
     "dependencies": ["gir1.2-gtop-2.0"]
   }
 ]
