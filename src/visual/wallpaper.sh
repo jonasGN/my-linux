@@ -8,7 +8,9 @@ _WALLPAPER_THEME="$1"
 
 set_wallpaper() {
   local WALLPAPER="$1"
-  gsettings set org.gnome.desktop.background picture-uri "file:///~/.local/share/backgrounds/${WALLPAPER}"
+
+  local HOME=$(echo ~/)
+  gsettings set org.gnome.desktop.background picture-uri "file:///${HOME}.local/share/backgrounds/${WALLPAPER}"
 }
 
 install_wallpaper() {
@@ -17,16 +19,10 @@ install_wallpaper() {
   local BACKGROUNDS_PATH=~/.local/share/backgrounds
   local BACKGROUND="${THEME}-wallpaper.png"
 
-  print_header "\nInstalando background para o tema $THEME"
+  print_header "\nInstalando background"
   cp -r "$LOCAL_DIR/assets/backgrounds/${BACKGROUND}" "$BACKGROUNDS_PATH"
-  set_background ${BACKGROUND}
+  set_wallpaper ${BACKGROUND}
   print_success "Wallpaper instalado com sucesso"
 }
 
-if [[ "$_WALLPAPER_THEME" != "fluent" || "$_WALLPAPER_THEME" != "orchis" ]]; then
-  print_alert "Wallpaper para o tema selecionado não encontrado. \nDefinindo wallpaper padrão..."
-  install_wallpaper "fluent"
-  exit 0
-fi
-
-install_wallpaper "$_WALLPAPER_THEME"
+install_wallpaper "fluent"

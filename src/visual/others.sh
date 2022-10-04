@@ -4,11 +4,12 @@
 source src/setup.sh
 source src/beutify.sh
 
-print_header "Carregando configurações das extensões..."
+print_header "\nCarregando configurações das extensões..."
 dconf load /org/gnome/shell/extensions/ <"$ASSETS_DIR/extension-settings.dconf"
 
 # to load all uncomment this line (needs the dconf file)
 # dconf load / <./src/all-dconf-settings.dconf
+print_success "Configurações das extensões carregadas com sucesso"
 
 print_header "\nCarregando configurações extras de visuais..."
 # show weekday on top bar clock
