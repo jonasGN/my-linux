@@ -20,7 +20,8 @@ install_wallpaper() {
   local BACKGROUND="${THEME}-wallpaper.png"
 
   print_header "\nInstalando background"
-  cp "$LOCAL_DIR/assets/backgrounds/${BACKGROUND}" "$BACKGROUNDS_PATH"
+  mkdir -p "$BACKGROUNDS_PATH"
+  cp "$LOCAL_DIR/assets/backgrounds/${BACKGROUND}" "$BACKGROUNDS_PATH/"
   set_wallpaper ${BACKGROUND}
   print_success "Wallpaper instalado com sucesso"
 }
