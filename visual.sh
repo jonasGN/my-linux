@@ -92,10 +92,11 @@ download_repo() {
   git clone $REPO
 }
 
-# enable given theme from legacy apps theme
+# enable given theme from legacy apps theme and user themes
 set_theme() {
   local THEME="$1"
   gsettings set org.gnome.desktop.interface gtk-theme "$THEME"
+  gsettings set org.gnome.shell.extensions.user-theme name "$THEME"
 }
 
 # enable given icon theme
@@ -179,11 +180,19 @@ cd "$TEMP_WORK_DIR/cursor_themes/WhiteSur-cursors"
 bash install.sh
 set_cursor_theme "WhiteSur-cursors"
 
-# SET VISUAL CONFIGS
+# SETTING VISUAL CONFIGS
 print_header "Carregando configurações das extensões..."
 dconf load /org/gnome/shell/extensions/ <"$LOCAL_PATH/src/extension-settings.dconf"
 # to load all uncomment this line (needs the dconf file)
 # dconf load / <./src/all-dconf-settings.dconf
+
+# SETTING OTHER VISUAL CONFIGS
+# show weekday on top bar clock
+gsettings set org.gnome.desktop.interface clock-show-weekday true
+# add minimize and maximize buttons to window top bar
+gsettings set org.gnome.desktop.wm.preferences button-layout appmenu:minimize,maximize,close
+# center new windows
+gsettings set org.gnome.mutter center-new-windows true
 
 # CLEAN VISUAL FILES
 cd "$LOCAL_PATH"
@@ -196,3 +205,40 @@ sudo apt autoclean && sudo apt autoremove -y
 print_header "O sistema será reiniciado em $REBOOT_TIME segundos"
 sleep $REBOOT_TIME
 sudo reboot
+
+# # SOURCES
+# source src/setup.sh
+# source src/beutify.sh
+# source src/visual/extensions.sh
+# source src/visual/themes.sh
+# source src/visual/icons.sh
+# source src/visual/cursors.sh
+# source src/visual/others.sh
+
+# echo -n "Escolha o tema a ser instalado (fluent | orchis) [fluent]: "
+# read -t 10 -r SELECTED_GNOME_THEME
+
+# # default theme is `fluent`
+# SELECTED_GNOME_THEME="${SELECTED_GNOME_THEME:-fluent}"
+
+# # if user press 'enter' proceed to default theme installation
+# if [[ "$SELECTED_GNOME_THEME" != "" ]]; then
+#   while [[ ! "$SELECTED_GNOME_THEME" =~ ^([fluent orchis]) ]]; do
+#     print_alert "Não foi possível encontrar o tema informado."
+#     echo -en "Escolha entre: fluent | orchis: "
+#     read -r SELECTED_GNOME_THEME
+#   done
+# elif [[ "$SELECTED_GNOME_THEME" == "" ]]; then
+#   print_header "\nProsseguindo com tema padrão: ($SELECTED_GNOME_THEME)"
+# fi
+
+# # CLEAN VISUAL CACHE FILES
+# print_success "Configurações visuais aplicadas com sucesso.\nLimpando cache de instalação..."
+# sudo rm -r "$WORK_DIR"
+
+# # clean packages and reboot system
+# REBOOT_TIME=5
+# sudo apt autoclean && sudo apt autoremove -y
+# print_header "O sistema será reiniciado em $REBOOT_TIME segundos"
+# sleep $REBOOT_TIME
+# sudo reboot
