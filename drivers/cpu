@@ -1,0 +1,36 @@
+# retrive cpu vendor name
+get_cpu_vendor() {
+  local name=$(grep -m 1 'model name' /proc/cpuinfo)
+  local vendor="unknow"
+
+  if grep -qi "amd" <<<"$name"; then
+    vendor="amd"
+  elif grep -qi "intel" <<<"$name"; then
+    vendor="intel"
+  fi
+  echo $vendor
+}
+
+_AMD_CPU_PACKAGES=(
+  "amd64-microcode" # patches para correção do comportamento para processadores AMD AMD64
+)
+
+_INTEL_CPU_PACKAGES=(
+  "intel-microcode" # patches para correção do comportamento para processadores Intel i686 e X86-64
+)
+
+echo -e "[DRIVER] Instalando o driver para a CPU"
+
+case $(get_cpu_vendor) in
+"amd")
+  echo -e "[INFO] Processador AMD identificado"
+  sudo apt install -y ${_AMD_CPU_PACKAGES[@]}
+  ;;
+"intel")
+  echo -e "[INFO] Processador Intel identificado"
+  sudo apt install -y ${_INTEL_CPU_PACKAGES[@]}
+  ;;
+*)
+  echo -e "CPU identificada não suportada. Operação abortada."
+  ;;
+esac
