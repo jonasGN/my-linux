@@ -56,7 +56,7 @@ wrong_zram_config() {
 }
 
 print_info "Instalando zram-tools"
-# sudo apt install -y zram-tools
+sudo apt install -y zram-tools
 if file_exists "$_ZRAM_FILE"; then
   sudo sed -i 's/#ALGO=.*/ALGO=zstd/g' $_ZRAM_FILE
   sudo sed -i 's/#PERCENT=.*/PERCENT=25/g' $_ZRAM_FILE
