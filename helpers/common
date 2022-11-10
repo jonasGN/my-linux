@@ -14,11 +14,10 @@ single_char_confirmation() {
     [Nn])
       if [[ -z "$errorFun" ]]; then
         print_success "Operação abortada com sucesso."
-        exit 0
       else
         $errorFun
-        exit 0
       fi
+      exit 0
       ;;
     esac
   done

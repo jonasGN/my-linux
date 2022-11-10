@@ -10,6 +10,8 @@ echo -e "2 - Instalação de ferramentas básicas (git, curl e etc)."
 echo -e "3 - Instalação do sistema GNOME e de aplicativos do sistema."
 echo -e "4 - Instalação de pacotes básicos (navegador, reprodutor de mídia e etc)."
 
+single_char_confirmation "Deseja continuar?"
+
 # create temp work folders
 source config/folders.conf
 print_info "Criando pastas de instalação"
