@@ -44,6 +44,7 @@ danger_confirmation() {
   done
 }
 
+# returns true if file exists, otherwise returns false
 file_exists() {
   local file="$1"
   if [[ -f "$file" ]]; then
@@ -52,6 +53,7 @@ file_exists() {
   return 1
 }
 
+# reboot system after given time in seconds
 reboot_system() {
   for ((c = 5; c > 0; c--)); do
     print_alert "O sistema será reiniciado em ${c} segundos... (CTRL+C para cancelar)\\r" -en
@@ -60,4 +62,20 @@ reboot_system() {
   echo -e "\n"
   print_info "Sistema reiniciando"
   sudo reboot
+}
+
+# install packages one by one
+install_packages() {
+  local PACKAGES=("$@")
+  for PACKAGE in ${PACKAGES[@]}; do
+    sudo apt install -y $PACKAGE
+  done
+}
+
+# uninstall packages one by one
+uninstall_packages() {
+  local PACKAGES=("$@")
+  for PACKAGE in ${PACKAGES[@]}; do
+    sudo apt autoremove -y $PACKAGE
+  done
 }

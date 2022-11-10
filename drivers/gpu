@@ -14,7 +14,7 @@ install_nvidia_drivers() {
   # install nvidia GPU driver dependencies
   sudo apt install -y linux-headers-amd64 nvidia-detect
 
-  # catch the recommended driver and install it with firmware package
+  # find the recommended driver and install it with firmware package
   local gpu_driver=$(nvidia-detect | sed -n '/recommended/{ n; p }' | sed 's/ //g')
   sudo apt install -y "$gpu_driver" firmware-misc-nonfree
 }
@@ -23,15 +23,13 @@ install_amd_drivers() {
   echo "create AMD GPU installation script here"
 }
 
-echo -e "[DRIVER] Instalando o driver de vídeo para a GPU"
-
 case $(get_gpu_vendor) in
 "nvidia")
-  echo -e "[INFO] GPU Nvidia identificado"
+  echo -e "GPU Nvidia identificado"
   install_nvidia_drivers
   ;;
 "amd")
-  echo -e "[INFO] GPU AMD identificado"
+  echo -e "GPU AMD identificado"
   install_amd_drivers
   ;;
 *)

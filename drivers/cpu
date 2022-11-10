@@ -19,15 +19,13 @@ _INTEL_CPU_PACKAGES=(
   "intel-microcode" # patches para correção do comportamento para processadores Intel i686 e X86-64
 )
 
-echo -e "[DRIVER] Instalando o driver para a CPU"
-
 case $(get_cpu_vendor) in
 "amd")
-  echo -e "[INFO] Processador AMD identificado"
+  echo -e "Processador AMD identificado"
   sudo apt install -y ${_AMD_CPU_PACKAGES[@]}
   ;;
 "intel")
-  echo -e "[INFO] Processador Intel identificado"
+  echo -e "Processador Intel identificado"
   sudo apt install -y ${_INTEL_CPU_PACKAGES[@]}
   ;;
 *)

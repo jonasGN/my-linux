@@ -44,12 +44,13 @@ print_zram_info() {
   local priority=$(cat $file | grep -i "priority=")
 
   print_success "${algo}\n${percent}\n${size}\n${priority}"
-  print_observation "Os campos que contém '*' não estão habilitados"
+  print_observation "\nOs campos que contém '#' não estão habilitados"
 }
 
 wrong_zram_config() {
   if file_exists "$_ZRAM_FILE"; then
     sudo nano $_ZRAM_FILE
+    reboot_system
   else
     print_alert "O arquivo de configuração do Zramswap não existe."
   fi
