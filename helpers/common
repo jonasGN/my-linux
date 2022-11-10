@@ -1,0 +1,63 @@
+source helpers/prints
+
+# loop until the given char correspond to the valid one
+single_char_confirmation() {
+  local question="$1"
+  local errorFun=$2
+
+  while true; do
+    read -r -p "${question} [y/n]: " _answer
+    case "$_answer" in
+    [Yy])
+      break
+      ;;
+    [Nn])
+      if [[ -z "$errorFun" ]]; then
+        print_success "Operação abortada com sucesso."
+        exit 0
+      else
+        $errorFun
+        exit 0
+      fi
+      ;;
+    esac
+  done
+}
+
+# loop until the given string correspond to the valid one
+danger_confirmation() {
+  local question="$1"
+  local valid="$2"
+  local invalid="$3"
+
+  while true; do
+    read -r -p "${question}: " _answer
+    case "$_answer" in
+    "$valid")
+      break
+      ;;
+    "$invalid")
+      print_success "Operação abortada com sucesso."
+      exit 0
+      ;;
+    esac
+  done
+}
+
+file_exists() {
+  local file="$1"
+  if [[ -f "$file" ]]; then
+    return 0
+  fi
+  return 1
+}
+
+reboot_system() {
+  for ((c = 5; c > 0; c--)); do
+    print_alert "O sistema será reiniciado em ${c} segundos... (CTRL+C para cancelar)\\r" -en
+    sleep 1
+  done
+  echo -e "\n"
+  print_info "Sistema reiniciando"
+  sudo reboot
+}

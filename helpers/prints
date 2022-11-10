@@ -1,0 +1,35 @@
+# colors
+ALERT_COLOR="\e[31m"
+SUCCESS_COLOR="\e[32m"
+HEADER_COLOR="\e[96m"
+RESET_COLOR="\e[0m"
+OBSERVATION_COLOR="\e[33m"
+
+# used when some script needs attention
+print_header() {
+  local options=${2:--e}
+  echo $options "${HEADER_COLOR}${1}:${RESET_COLOR}"
+}
+
+# used when some script is dangerous
+print_alert() {
+  local options=${2:--e}
+  echo $options "${ALERT_COLOR}${1}${RESET_COLOR}"
+}
+
+# used when some script is succeed
+print_success() {
+  local options=${2:--e}
+  echo $options "${SUCCESS_COLOR}${1}${RESET_COLOR}"
+}
+
+print_observation() {
+  local options=${2:--e}
+  echo $options "${OBSERVATION_COLOR}${1}${RESET_COLOR}"
+}
+
+print_info() {
+  local content=${1}
+  local prefix=${2:-INFO}
+  echo -e "[${prefix^^}]: $content"
+}
