@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # config
-source config/folders.conf
+source config/env.conf
 source config/repos.conf
 source config/themes.conf
 
@@ -19,10 +19,10 @@ set_cursor_theme() {
 
 if [[ "${AVAILABLE_THEMES[*]}" == *"$_CURSOR_THEME"* ]] || [[ "$_CURSOR_THEME" == "" ]]; then
   print_header "\nAplicando tema de cursor 'white-sur'"
-  cd "$CURSORS_WORK_DIR"
+  cd "$CURSOR_THEME_DIR"
 
   clone_repo "${WHITE_SUR_CURSOR_THEME_REPO}" "white-sur"
-  cd "${CURSORS_WORK_DIR}/white-sur"
+  cd "${CURSOR_THEME_DIR}/white-sur"
 
   print_info "Executando script de instalação do tema de cursor"
   bash install.sh

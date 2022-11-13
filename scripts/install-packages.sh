@@ -5,17 +5,13 @@ source helpers/common
 source helpers/prints
 
 # config imports
-source config/folders.conf
 source config/env.conf
+source custom.conf
 
 # packages imports
 source packages/tools.conf
 source packages/gnome.conf
 source packages/apps.conf
-
-if file_exists "$CUSTOM_CONFIG_FILE"; then
-  source custom.conf
-fi
 
 # BASIC TOOLS
 print_header "Instalando pacotes básicos"

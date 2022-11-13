@@ -1,5 +1,8 @@
 #!bin/bash
 
+# config imports
+source config/env.conf
+
 # utils imports
 source helpers/prints
 source helpers/common
@@ -26,15 +29,14 @@ print_header "***** SCRIPT DE AUTOMATIZAÇÃO CUSTOMIZADA PARA DEBIAN *****"
 print_info "Iniciando processo de instalação customizada"
 
 # create temp work folders
-source config/folders.conf
 print_info "Criando diretórios de instalação"
-if ! [[ -d "$WORK_DIR" ]]; then
-  mkdir -p "$WORK_DIR" &&
-    mkdir -p "$EXTENSIONS_WORK_DIR" &&
-    mkdir -p "$THEMES_WORK_DIR" &&
-    mkdir -p "$ICONS_WORK_DIR" &&
-    mkdir -p "$CURSORS_WORK_DIR" &&
-    mkdir -p "$APPS_WORK_DIR"
+if ! [[ -d "$TEMP_DIR" ]]; then
+  mkdir -p "$APPS_DIR" &&
+    mkdir -p "$THEME_DIR" &&
+    mkdir -p "$ICON_THEME_DIR" &&
+    mkdir -p "$CURSOR_THEME_DIR" &&
+    mkdir -p "$EXTENSIONS_DIR"
+
 fi
 
 # update repository before continue
@@ -52,7 +54,7 @@ bash scripts/themes.sh
 
 # clean installation after all
 print_observation "Limpando vestigios de instalação"
-sudo rm -r "$WORK_DIR"
+sudo rm -r "$TEMP_DIR"
 
 print_success "Script finalizado com sucesso"
 # TODO: reboot system here

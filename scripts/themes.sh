@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # config
-source config/folders.conf
 source config/themes.conf
 
 # utils imports
