@@ -14,4 +14,28 @@ Primeiramente é necessário realizar o download do **Debian stable** através d
 
 Após realizar o download do sistema, instale-o através do modo expert.
 
+---
+
+# Customização
+
+É possível customizar algumas configurações para realizar uma instalação alternativa. Para isso, é necessário criar um arquivo na raíz do projeto chamado **custom.conf**.
+
+## Pacotes
+
+Para acrescentar pacotes a instalação, basta criar uma das ou ambas as entradas abaixo, contendo o nome do pacote da seguinte forma:
+
+```bash
+# entrada para INSTALAR pacotes
+CUSTOM_PACKAGES=(
+    "nome-do-pacote"
+)
+
+# entrada para DESINSTALAR pacotes
+CUSTOM_UNINSTALL_PACKAGES=(
+    "nome-do-pacote"
+)
+```
+
+
+
 
