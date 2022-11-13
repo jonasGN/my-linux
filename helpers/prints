@@ -29,7 +29,16 @@ print_observation() {
 }
 
 print_info() {
-  local content=${1}
-  local prefix=${2:-INFO}
+  local content="${1}"
+  local prefix="${2:-INFO}"
   echo -e "[${prefix^^}]: $content"
+}
+
+# print list with number as prefix
+print_list() {
+  local arr=("$@")
+  for i in "${!arr[@]}"; do
+    local pos=$(($i + 1))
+    echo -e "${OBSERVATION_COLOR}${pos}${RESET_COLOR} - ${arr[i]}"
+  done
 }

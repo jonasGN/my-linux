@@ -43,6 +43,23 @@ danger_confirmation() {
   done
 }
 
+# accepts only one of the given elements
+wait_valid_input() {
+  local question="$1"
+  local validList=("$@")
+
+  while true; do
+    read -r -p "${question}: " _answer
+    if [[ "$_answer" == "" ]]; then
+      continue
+    fi
+    if [[ "${validList[*]}" == *"$_answer"* ]]; then
+      break
+    fi
+  done
+  echo "$_answer"
+}
+
 # returns true if file exists, otherwise returns false
 file_exists() {
   local file="$1"
@@ -59,22 +76,30 @@ reboot_system() {
     sleep 1
   done
   echo -e "\n"
-  print_info "Sistema reiniciando"
+  print_info "Sistema reiniciando..."
   sudo reboot
 }
 
 # install packages one by one
 install_packages() {
-  local PACKAGES=("$@")
-  for PACKAGE in ${PACKAGES[@]}; do
-    sudo apt install -y $PACKAGE
+  local packages=("$@")
+  for package in "${packages[@]}"; do
+    sudo apt install -y $package
   done
 }
 
 # uninstall packages one by one
 uninstall_packages() {
-  local PACKAGES=("$@")
-  for PACKAGE in ${PACKAGES[@]}; do
-    sudo apt autoremove -y $PACKAGE
+  local packages=("$@")
+  for package in "${packages[@]}"; do
+    sudo apt autoremove -y $package
   done
+}
+
+# clone a git repository
+clone_repo() {
+  local repo="$1"
+  local name="$2"
+  echo "Clonando repositório: $repo"
+  git clone "$repo" "$name"
 }
