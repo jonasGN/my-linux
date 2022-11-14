@@ -77,7 +77,7 @@ bash "scripts/system-theme" "$_SELECTED_THEME"
 bash "scripts/cursors.sh" "$_SELECTED_THEME"
 
 # icon theme installation script
-bash "scripts/icons.sh" "$SELECTED_THEME"
+bash "scripts/icons.sh" "$_SELECTED_THEME"
 
 # # wallpaper config script
 # bash "$LOCAL_DIR/src/visual/wallpaper.sh" "$SELECTED_GNOME_THEME"
