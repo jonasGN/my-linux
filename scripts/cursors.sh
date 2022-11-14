@@ -19,10 +19,17 @@ set_cursor_theme() {
 
 if [[ "${AVAILABLE_THEMES[*]}" == *"$_CURSOR_THEME"* ]] || [[ "$_CURSOR_THEME" == "" ]]; then
   print_header "\nAplicando tema de cursor 'white-sur'"
+  print_info "Acessando diretório ${CURSOR_THEME_DIR}"
   cd "$CURSOR_THEME_DIR"
 
   clone_repo "${WHITE_SUR_CURSOR_THEME_REPO}" "white-sur"
+  print_info "Acessando diretório ${CURSOR_THEME_DIR}/white-sur"
   cd "${CURSOR_THEME_DIR}/white-sur"
+
+  if ! [[ -d ~/.local/share/icons ]]; then
+    print_info "Criando diretório de instalação para temas de cursor"
+    mkdir -p ~/.local/share/icons
+  fi
 
   print_info "Executando script de instalação do tema de cursor"
   bash install.sh

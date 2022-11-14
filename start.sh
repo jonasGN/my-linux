@@ -46,14 +46,14 @@ sudo apt update
 # # install drivers
 # bash scripts/drivers.sh
 
-# # packages installation and gnome DE
+# # packages installation, tools, basico apps and gnome DE
 # bash scripts/install-packages.sh
 
 # apply themes and visual configs
 bash scripts/themes.sh
 
 # clean installation after all
-print_observation "Limpando vestigios de instalação"
+print_observation "\nLimpando vestigios de instalação"
 sudo rm -r "$TEMP_DIR"
 
 print_success "Script finalizado com sucesso"
