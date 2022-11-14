@@ -3,7 +3,7 @@
 # utils imports
 source helpers/prints
 
-print_header "Instalando drivers de sistema"
+print_header "\nInstalando drivers de sistema"
 
 print_info "Instalando o driver para a CPU" "driver"
 source drivers/cpu

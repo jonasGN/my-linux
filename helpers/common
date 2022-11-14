@@ -70,6 +70,16 @@ file_exists() {
   return 1
 }
 
+# check if a command exists returning a boolean value
+command_exists() {
+  local comm="$1"
+  if command -v "$comm" &>/dev/null; then
+    return 0
+  else
+    return 1
+  fi
+}
+
 # reboot system after given time in seconds
 reboot_system() {
   for ((c = 5; c > 0; c--)); do

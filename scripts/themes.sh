@@ -15,8 +15,8 @@ _SELECTED_THEME=
 
 # only runs if it is a GNOME enviroment
 print_info "Verificando ambiente de desktop"
-if ! grep -qi "gnome" <<<"$_CURRENT_DESKTOP_XDG"; then
-  print_alert "Você está executando este script fora do ambiente GNOME sem suporte."
+if ! command_exists "gnome-shell"; then
+  print_alert "Você está executando este script fora do ambiente GNOME e essa operação não possui suporte."
   print_success "Operação abortada devido à incompatibilidade."
   exit 0
 fi
