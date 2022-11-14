@@ -43,11 +43,11 @@ fi
 print_info "Atualizando repositórios antes de prosseguir"
 sudo apt update
 
-# # install drivers
-# bash scripts/drivers.sh
+# install drivers
+bash scripts/drivers.sh
 
-# # packages installation, tools, basico apps and gnome DE
-# bash scripts/install-packages.sh
+# packages installation, tools, basico apps and gnome DE
+bash scripts/install-packages.sh
 
 # apply themes and visual configs
 bash scripts/themes.sh

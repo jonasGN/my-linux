@@ -17,7 +17,7 @@ set_cursor_theme() {
   gsettings set org.gnome.desktop.interface cursor-theme "$theme"
 }
 
-if [[ "${AVAILABLE_THEMES[*]}" == *"$_CURSOR_THEME"* ]] || [[ "$_CURSOR_THEME" == "" ]]; then
+if is_theme_valid "$_CURSOR_THEME" "${AVAILABLE_THEMES[@]}"; then
   print_header "\nAplicando tema de cursor 'white-sur'"
   print_info "Acessando diretório ${CURSOR_THEME_DIR}"
   cd "$CURSOR_THEME_DIR"

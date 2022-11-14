@@ -70,24 +70,28 @@ while true; do
   fi
 done
 
-case "$_SELECTED_THEME" in
-"fluent")
-  # cursor installation script
-  bash "scripts/cursors.sh" "$_SELECTED_THEME"
+# system theme installation script
+bash "scripts/system-theme" "$_SELECTED_THEME"
 
-  # # icon theme installation script
-  # bash "$LOCAL_DIR/src/visual/icons.sh" "$SELECTED_GNOME_THEME"
+# cursor installation script
+bash "scripts/cursors.sh" "$_SELECTED_THEME"
 
-  # # cursors theme installation script
-  # bash "$LOCAL_DIR/src/visual/cursors.sh"
-  ;;
+# icon theme installation script
+bash "scripts/icons.sh" "$SELECTED_THEME"
 
-"orchis") ;;
-esac
+# # wallpaper config script
+# bash "$LOCAL_DIR/src/visual/wallpaper.sh" "$SELECTED_GNOME_THEME"
+
+# # other visual configs stuff
+# bash "$LOCAL_DIR/src/visual/others.sh"
 
 # # extension installation script
 # bash "$LOCAL_DIR/src/visual/extensions.sh"
 
+print_success "Configurações visuais aplicadas com sucesso."
+#
+#
+#
 # echo -n "Escolha o tema a ser instalado (fluent | orchis) [fluent]: "
 # read -t 10 -r SELECTED_GNOME_THEME
 

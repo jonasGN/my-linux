@@ -46,6 +46,7 @@ danger_confirmation() {
 # accepts only one of the given elements
 wait_valid_input() {
   local question="$1"
+  shift
   local validList=("$@")
 
   while true; do
@@ -102,4 +103,20 @@ clone_repo() {
   local name="$2"
   echo "Clonando repositório: $repo"
   git clone "$repo" "$name"
+}
+
+# check if a selected theme is valid
+is_theme_valid() {
+  local target="$1"
+  shift
+  if [[ "$target" == "" ]]; then
+    return 1
+  fi
+
+  local themes=("$@")
+  if [[ "${themes[*]}" == *"$target"* ]] || [[ "$target" == "" ]]; then
+    return 0
+  else
+    return 1
+  fi
 }
