@@ -58,7 +58,7 @@ if is_theme_valid "$_SYSTEM_THEME" "${AVAILABLE_THEMES[@]}"; then
     exit 0
     ;;
   esac
-  print_success "Tema do sistema aplicado com sucesso\n"
+  print_success "Tema do sistema aplicado com sucesso"
 else
   print_alert "\nTema informado não disponível"
 fi

@@ -36,7 +36,7 @@ if is_theme_valid "$_CURSOR_THEME" "${AVAILABLE_THEMES[@]}"; then
   print_info "Aplicando tema de cursor"
   set_cursor_theme "WhiteSur-cursors"
 
-  print_success "Tema de cursor aplicado com sucesso\n"
+  print_success "Tema de cursor aplicado com sucesso"
 else
   print_alert "\nTema informado não disponível"
 fi

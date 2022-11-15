@@ -1,12 +1,20 @@
 #!/bin/bash
 
+# config imports
+source config/env.conf
+
 # utils imports
 source helpers/prints
+source helpers/common
+
+install_drivers() {
+  for driver in $ROOT_DIR/drivers/*; do
+    local name=$(get_file_name $driver)
+    print_info "Instalando driver relacionado a '$name'\n"
+    bash "$driver"
+  done
+}
 
 print_header "\nInstalando drivers de sistema"
-
-print_info "Instalando o driver para a CPU" "driver"
-source drivers/cpu
-
-print_info "Instalando o driver para a GPU" "driver"
-source drivers/gpu
+install_drivers
+print_success "Drivers instalados e configurados com sucesso"

@@ -71,7 +71,7 @@ download_extension() {
 }
 
 install_extensions() {
-  for file in extensions/*; do
+  for file in $ROOT_DIR/extensions/*; do
     local name=$(get_extension_name "$file")
     local extensionFile=$(get_extension_file_name "$file")
 
@@ -83,10 +83,10 @@ install_extensions() {
     print_info "UUID encontrada [$uuid]"
 
     print_info "Habilitando extensão '$name'"
-    gnome-extensions install "$extension" && gnome-extensions enable "$uuid"
+    gnome-extensions install "$extensionFile" && gnome-extensions enable "$uuid"
     print_info "Extensão '$name' instalada e habilitada com sucesso\n"
   done
-  print_success "Extensões instaladas e configuradas com sucesso"
+  print_success "Extensões instaladas e configuradas com sucesso\n"
 }
 
 print_header "\nInstalando extensões"

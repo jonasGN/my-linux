@@ -94,17 +94,20 @@ reboot_system() {
 # install packages one by one
 install_packages() {
   local packages=("$@")
-  for package in "${packages[@]}"; do
-    sudo apt install -y $package
-  done
+  sudo apt install -y "${packages[@]}"
 }
 
 # uninstall packages one by one
 uninstall_packages() {
   local packages=("$@")
-  for package in "${packages[@]}"; do
-    sudo apt autoremove -y $package
-  done
+  sudo apt autoremove -y "${packages[@]}"
+}
+
+# get only the file name without the extension of it
+get_file_name() {
+  local file="$1"
+  local rawName=$(basename -- "$file")
+  echo "${rawName%.*}"
 }
 
 # clone a git repository

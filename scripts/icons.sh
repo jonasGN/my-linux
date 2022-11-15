@@ -44,11 +44,11 @@ if is_theme_valid "$_ICON_THEME" "${AVAILABLE_THEMES[@]}"; then
   case "$_ICON_THEME" in
   "fluent")
     clone_repo "${FLUENT_ICON_THEME_REPO}" "fluent-icons"
-    install_icon_theme "$_ICON_THEME" "Fluent-purple-dark" -r standard purple
+    install_icon_theme "fluent" "Fluent-purple-dark" -r standard purple
     ;;
   "orchis")
     clone_repo "${TELA_ICON_THEME_REPO}" "tela-icons"
-    install_icon_theme "$_ICON_THEME" "Tela-purple-dark" standard purple
+    install_icon_theme "tela" "Tela-purple-dark" standard purple
     ;;
   *)
     print_observation "Tema informado não possui suporte ainda :("
@@ -56,7 +56,7 @@ if is_theme_valid "$_ICON_THEME" "${AVAILABLE_THEMES[@]}"; then
     exit 0
     ;;
   esac
-  print_success "Tema de ícones aplicado com sucesso\n"
+  print_success "Tema de ícones aplicado com sucesso"
 else
   print_alert "\nTema informado não disponível"
 fi

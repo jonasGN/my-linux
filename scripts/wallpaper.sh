@@ -42,7 +42,8 @@ install_wallpaper() {
 }
 
 print_header "\nConfigurando wallpaper"
-if is_theme_valid "$_WALLPAPER" "${AVAILABLE_THEMES}"; then
+print_info "Tema de wallpaper a ser instalado: '$_WALLPAPER'"
+if is_theme_valid "$_WALLPAPER" "${AVAILABLE_THEMES[@]}"; then
   install_wallpaper "$_WALLPAPER"
 else
   print_alert "Tema informado não disponível"

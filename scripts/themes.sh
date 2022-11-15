@@ -13,6 +13,8 @@ _CURRENT_GNOME_VERSION=$(gnome-shell --version | tr -cd '[[:digit:]].')
 _CURRENT_DESKTOP_XDG=$(env | grep -E '^XDG_CURRENT_DESKTOP=')
 _SELECTED_THEME=
 
+print_header "Configurando temas e configurações visuais"
+
 # only runs if it is a GNOME enviroment
 print_info "Verificando ambiente de desktop"
 if ! command_exists "gnome-shell"; then
@@ -42,7 +44,7 @@ print_theme_info() {
 
 get_theme() {
   local themes=("${AVAILABLE_THEMES[@]}")
-  print_header "\nEscolha um dos temas disponíveis a seguir para prosseguir"
+  print_observation "\nEscolha um dos temas disponíveis a seguir para prosseguir"
   print_list "${themes[@]}"
 
   local theme=$(wait_valid_input "Tema" "${themes[@]}")
@@ -71,6 +73,8 @@ while true; do
 done
 
 # system theme installation script
+print_info "Resolvendo dependências necessárias para o tema"
+sudo apt install -y libsass1 sassc
 bash "scripts/system-theme.sh" "$_SELECTED_THEME"
 
 # cursor installation script
