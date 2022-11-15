@@ -50,7 +50,7 @@ print_zram_info() {
 wrong_zram_config() {
   if file_exists "$_ZRAM_FILE"; then
     sudo nano $_ZRAM_FILE
-    reboot_system
+    reboot_system "Configurações correspondem ao esperado"
   else
     print_alert "O arquivo de configuração do Zramswap não existe."
   fi
@@ -71,4 +71,4 @@ fi
 
 # appling changes and rebooting
 single_char_confirmation "As configurações do Zramswap estão corretas?" wrong_zram_config
-reboot_system
+reboot_system "Necessário reiniciar para aplicar as configurações"

@@ -55,9 +55,12 @@ bash scripts/extensions.sh
 # apply themes and visual configs
 bash scripts/themes.sh
 
+# apply system visual configs, like window position and window buttons
+bash scripts/visual-config.sh
+
 # clean installation after all
 print_observation "\nLimpando vestigios de instalação"
 sudo rm -r "$TEMP_DIR"
 
 print_success "Script finalizado com sucesso"
-# TODO: reboot system here
+reboot_system "As alterações só terão efeito após reiniciar o sistema"

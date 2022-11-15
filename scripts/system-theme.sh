@@ -40,6 +40,9 @@ install_theme() {
 
 if is_theme_valid "$_SYSTEM_THEME" "${AVAILABLE_THEMES[@]}"; then
   print_header "\nAplicando tema do sistema '$_SYSTEM_THEME'"
+  print_info "Resolvendo dependências necessárias para a instalação do tema"
+  sudo apt install -y libsass1 sassc
+
   print_info "Acessando diretório ${THEME_DIR}"
   cd "$THEME_DIR"
 

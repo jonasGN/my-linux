@@ -82,8 +82,11 @@ command_exists() {
 
 # reboot system after given time in seconds
 reboot_system() {
-  for ((c = 5; c > 0; c--)); do
-    print_alert "O sistema será reiniciado em ${c} segundos... (CTRL+C para cancelar)\\r" -en
+  local info="${1:-"Aguarde. O sistema será reiniciado"}"
+  local time="${2:-5}"
+
+  for ((c = $time; c > 0; c--)); do
+    print_alert "[Reiniciando em ${c} seg]: ${info} - (CTRL+C para cancelar)\\r" -en
     sleep 1
   done
   echo -e "\n"

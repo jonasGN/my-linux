@@ -73,8 +73,6 @@ while true; do
 done
 
 # system theme installation script
-print_info "Resolvendo dependências necessárias para o tema"
-sudo apt install -y libsass1 sassc
 bash "scripts/system-theme.sh" "$_SELECTED_THEME"
 
 # cursor installation script
