@@ -22,10 +22,14 @@ get_extension_url() {
 get_extension_dependencies() {
   local file="$1"
   local deps=$(grep "DEPENDENCIES" $file | cut -b 15- | sed 's/)//')
+  local dependencies=()
 
   IFS=" "
   read -ra arr <<<"$deps"
-  echo "${arr[@]}"
+  for i in "${arr[@]}"; do
+    dependencies+=("$(echo $i | cut -d'"' -f 2)")
+  done
+  echo "${dependencies[@]}"
 }
 
 # find the full path and extension name
@@ -84,7 +88,7 @@ install_extensions() {
 
     # check if extensions is already installed
     if [[ -d ~/.local/share/gnome-shell/extensions/$uuid ]]; then
-      print_info "Extensão '$name' já instalada"
+      print_info "Extensão '$name' já instalada\n"
       continue
     fi
 
