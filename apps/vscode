@@ -1,0 +1,7 @@
+TYPE="deb"
+VSCODE="${MY_LINUX_DIR}/temp/apps/vscode.deb"
+
+if ! [[ -f "$VSCODE" ]]; then
+  wget -c "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64" -O "$VSCODE" -q --show-progress --progress=bar:force:noscroll
+fi
+sudo apt install -y "$VSCODE"

@@ -1,0 +1,7 @@
+TYPE="deb"
+FDM="${MY_LINUX_DIR}/temp/apps/free-download-manager.deb"
+
+if ! [[ -f "$FDM" ]]; then
+  wget -c "https://dn3.freedownloadmanager.org/6/latest/freedownloadmanager.deb" -O "$FDM" -q --show-progress --progress=bar:force:noscroll
+fi
+sudo apt install -y "$FDM"
