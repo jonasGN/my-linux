@@ -49,7 +49,7 @@ if is_theme_valid "$_SYSTEM_THEME" "${AVAILABLE_THEMES[@]}"; then
     install_theme "$_SYSTEM_THEME" "Fluent-round-purple-Dark" -t purple -s standard -i debian --tweaks round
     ;;
   "orchis")
-    clone_repo "${TELA_ICON_THEME_REPO}" "$_SYSTEM_THEME"
+    clone_repo "${ORCHIS_THEME_REPO}" "$_SYSTEM_THEME"
     install_theme "$_SYSTEM_THEME" "Orchis-Purple-Dark" -t purple -s standard --tweaks compact
     ;;
   *)

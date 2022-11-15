@@ -10,8 +10,9 @@ source helpers/common
 install_drivers() {
   for driver in $ROOT_DIR/drivers/*; do
     local name=$(get_file_name $driver)
-    print_info "Instalando driver relacionado a '$name'\n"
+    print_info "Instalando driver relacionado a '$name'"
     bash "$driver"
+    echo -en "\n"
   done
 }
 

@@ -82,6 +82,12 @@ install_extensions() {
     local uuid=$(unzip -c $extensionFile metadata.json | grep uuid | cut -d \" -f4)
     print_info "UUID encontrada [$uuid]"
 
+    # check if extensions is already installed
+    if [[ -d ~/.local/share/gnome-shell/extensions/$uuid ]]; then
+      print_info "Extensão '$name' já instalada"
+      continue
+    fi
+
     print_info "Habilitando extensão '$name'"
     gnome-extensions install "$extensionFile" && gnome-extensions enable "$uuid"
     print_info "Extensão '$name' instalada e habilitada com sucesso\n"
