@@ -1,0 +1,3 @@
+NAME="top-hat"
+URL="https://extensions.gnome.org/extension-data/tophatfflewddur.github.io.v4.shell-extension.zip"
+DEPENDENCIES=("gir1.2-gtop-2.0" "outro" "outra-dep")

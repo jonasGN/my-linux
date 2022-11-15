@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 
 # config imports
 source config/env.conf
@@ -48,6 +48,9 @@ bash scripts/drivers.sh
 
 # packages installation, tools, basico apps and gnome DE
 bash scripts/install-packages.sh
+
+# install GNOME extensions
+bash scripts/extensions.sh
 
 # apply themes and visual configs
 bash scripts/themes.sh

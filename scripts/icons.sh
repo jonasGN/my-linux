@@ -40,6 +40,7 @@ if is_theme_valid "$_ICON_THEME" "${AVAILABLE_THEMES[@]}"; then
   print_header "\nAplicando tema de ícones '${_ICON_THEME}'"
   print_info "Acessando diretório ${ICON_THEME_DIR}"
   cd "$ICON_THEME_DIR"
+
   case "$_ICON_THEME" in
   "fluent")
     clone_repo "${FLUENT_ICON_THEME_REPO}" "fluent-icons"

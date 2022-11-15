@@ -71,7 +71,7 @@ while true; do
 done
 
 # system theme installation script
-bash "scripts/system-theme" "$_SELECTED_THEME"
+bash "scripts/system-theme.sh" "$_SELECTED_THEME"
 
 # cursor installation script
 bash "scripts/cursors.sh" "$_SELECTED_THEME"
@@ -79,14 +79,11 @@ bash "scripts/cursors.sh" "$_SELECTED_THEME"
 # icon theme installation script
 bash "scripts/icons.sh" "$_SELECTED_THEME"
 
-# # wallpaper config script
-# bash "$LOCAL_DIR/src/visual/wallpaper.sh" "$SELECTED_GNOME_THEME"
+# wallpaper config script
+bash "scripts/wallpaper.sh" "$_SELECTED_THEME"
 
 # # other visual configs stuff
 # bash "$LOCAL_DIR/src/visual/others.sh"
-
-# # extension installation script
-# bash "$LOCAL_DIR/src/visual/extensions.sh"
 
 print_success "Configurações visuais aplicadas com sucesso."
 #
