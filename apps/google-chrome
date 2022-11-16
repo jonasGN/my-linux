@@ -1,8 +1,2 @@
 TYPE="deb"
-GOOGLE_CHROME="${MY_LINUX_DIR}/temp/apps/google-chrome.deb"
-
-if ! [[ -f "$GOOGLE_CHROME" ]]; then
-  # curl -L --create-dirs --output ${GOOGLE_CHROME} --url "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" --progress-bar
-  wget -c "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" -O "$GOOGLE_CHROME" -q --show-progress --progress=bar:force:noscroll
-fi
-sudo apt install -y "$GOOGLE_CHROME"
+URL="https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
