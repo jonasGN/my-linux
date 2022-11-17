@@ -83,8 +83,9 @@ print_header "\nConfigurando terminal"
 print_info "Instalando dependências"
 sudo apt install -y zsh dconf-cli
 
-print_info "Executando script de instalação do 'ohmyzhs'"
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# TODO: fix zsh installation exit
+# print_info "Executando script de instalação do 'ohmyzhs'"
+# sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 print_info "Aplicando tema para o terminal"
 install_terminal_theme
