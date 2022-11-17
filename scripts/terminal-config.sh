@@ -7,6 +7,48 @@ source config/env.conf
 source helpers/common
 source helpers/prints
 
+find_terminal_profile() {
+  local target="$1"
+  shift
+  local ids=("$@")
+  local profilesPath="/org/gnome/terminal/legacy/profiles:"
+
+  for id in "${ids[@]}"; do
+    local name=$(dconf read $profilesPath/:$id/visible-name)
+    if [[ "$name" == "'$target'" ]]; then
+      echo "$id"
+      return 0
+    fi
+  done
+  return 1
+}
+
+create_new_terminal_profile() {
+  local profileName="$1"
+  local profilesPath="/org/gnome/terminal/legacy/profiles:"
+  local profilesIds=($(dconf list $profilesPath/ | grep ^: | sed 's/[\/\:]//g'))
+  local profilesIdsOld=$(dconf read "$profilesPath"/list | tr -d "]")
+  local newProfileId="$(uuidgen)"
+
+  local targetProfileId=$(find_terminal_profile "$profileName" "${profilesIds[@]}")
+  if [[ "$targetProfileId" ]]; then
+    echo "$targetProfileId"
+    return
+  fi
+
+  # check if there is a list and is not empty
+  if
+    [[ -z "$profilesIdsOld" ]] &&
+      [[ "$profilesIdsOld" == "[" ]] &&
+      [[ ${#profilesIds[@]} -gt 0 ]]
+  then
+    local newIds="${profilesIdsOld}, '${newProfileId}']"
+    -e dconf write "${profilesPath}/list" "$newIds"
+    -e dconf write "${profilesPath}/:${newProfileId}"/visible-name "'${profileName}'"
+    echo "$newProfileId"
+  fi
+}
+
 install_terminal_theme() {
   local dir="${TERMINAL_DIR}"
   local theme="dracula"
@@ -18,6 +60,8 @@ install_terminal_theme() {
 
   if ! [[ -d "${path}" ]]; then
     print_info "Fazendo o download do tema '${theme}'"
+    print_info "Acessando diretório '${dir}'"
+    cd "${dir}"
     clone_repo "https://github.com/dracula/gnome-terminal" "${theme}-theme"
   else
     print_info "Arquivos de tema encontrado em ${path}"
@@ -27,7 +71,7 @@ install_terminal_theme() {
   print_info "Acessando diretório '${path}'"
   cd "${path}"
   print_info "Executando script de instalação do tema '${theme}'"
-  bash install.sh
+  bash install.sh --scheme=Dracula --profile 1 --skip-dircolors
 }
 
 print_header "\nConfigurando terminal"

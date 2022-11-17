@@ -63,7 +63,7 @@ bash scripts/themes.sh
 bash scripts/visual-config.sh
 
 # install third party apps
-bash scripts/install_apps.sh
+bash scripts/install-apps.sh
 
 # config terminal
 bash scripts/terminal-config.sh
