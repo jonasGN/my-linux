@@ -7,14 +7,15 @@ source config/env.conf
 source helpers/common
 source helpers/prints
 
+_TERMINAL_PROFILE_PATH="/org/gnome/terminal/legacy/profiles:"
+
+# searchs for the given profile name ID. If does not find, returns nothing
 find_terminal_profile() {
   local target="$1"
-  shift
-  local ids=("$@")
-  local profilesPath="/org/gnome/terminal/legacy/profiles:"
+  local ids=($(dconf list $_TERMINAL_PROFILE_PATH/ | grep ^: | sed 's/[\/\:]//g'))
 
   for id in "${ids[@]}"; do
-    local name=$(dconf read $profilesPath/:$id/visible-name)
+    local name=$(dconf read $_TERMINAL_PROFILE_PATH/:$id/visible-name)
     if [[ "$name" == "'$target'" ]]; then
       echo "$id"
       return 0
@@ -25,28 +26,13 @@ find_terminal_profile() {
 
 create_new_terminal_profile() {
   local profileName="$1"
-  local profilesPath="/org/gnome/terminal/legacy/profiles:"
-  local profilesIds=($(dconf list $profilesPath/ | grep ^: | sed 's/[\/\:]//g'))
-  local profilesIdsOld=$(dconf read "$profilesPath"/list | tr -d "]")
+  local profilesIdsOld=$(dconf read "$_TERMINAL_PROFILE_PATH"/list | tr -d "]")
   local newProfileId="$(uuidgen)"
+  local newIds="${profilesIdsOld}, '${newProfileId}']"
 
-  local targetProfileId=$(find_terminal_profile "$profileName" "${profilesIds[@]}")
-  if [[ "$targetProfileId" ]]; then
-    echo "$targetProfileId"
-    return
-  fi
-
-  # check if there is a list and is not empty
-  if
-    [[ -z "$profilesIdsOld" ]] &&
-      [[ "$profilesIdsOld" == "[" ]] &&
-      [[ ${#profilesIds[@]} -gt 0 ]]
-  then
-    local newIds="${profilesIdsOld}, '${newProfileId}']"
-    -e dconf write "${profilesPath}/list" "$newIds"
-    -e dconf write "${profilesPath}/:${newProfileId}"/visible-name "'${profileName}'"
-    echo "$newProfileId"
-  fi
+  dconf write "${_TERMINAL_PROFILE_PATH}/list" "$newIds"
+  dconf write "${_TERMINAL_PROFILE_PATH}/:${newProfileId}"/visible-name "'${profileName}'"
+  echo "$newProfileId"
 }
 
 install_terminal_theme() {
@@ -64,14 +50,33 @@ install_terminal_theme() {
     cd "${dir}"
     clone_repo "https://github.com/dracula/gnome-terminal" "${theme}-theme"
   else
-    print_info "Arquivos de tema encontrado em ${path}"
+    print_info "Arquivos de tema encontrado em '${path}'"
     print_info "Pulando etapa de download do tema '${theme}'"
+  fi
+
+  local terminalId=
+  local profileName="${theme^}"
+  local terminalProfileTargetId=$(find_terminal_profile "$profileName")
+
+  print_info "Procurando pelo perfil '$profileName'"
+  if [[ "$terminalProfileTargetId" ]]; then
+    print_info "Perfil '$profileName' encontrado"
+    terminalId="$terminalProfileTargetId"
+  else
+    print_info "Perfil '$profileName' não encontrado"
+    print_info "Criando perfil para o terminal '$profileName'"
+    local newProfileId=$(create_new_terminal_profile "$profileName")
+    print_info "ID do perfil '$profileName' ('$newProfileId')"
+    terminalId="$newProfileId"
   fi
 
   print_info "Acessando diretório '${path}'"
   cd "${path}"
   print_info "Executando script de instalação do tema '${theme}'"
-  bash install.sh --scheme=Dracula --profile 1 --skip-dircolors
+  bash install.sh --scheme="Dracula" --profile "$profileName" --skip-dircolors
+
+  print_info "Alterando perfil padrão para '$profileName'"
+  dconf write "$_TERMINAL_PROFILE_PATH/default" "'$terminalId'"
 }
 
 print_header "\nConfigurando terminal"
@@ -83,3 +88,5 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 
 print_info "Aplicando tema para o terminal"
 install_terminal_theme
+
+print_observation "Talvez seja necessário reiniciar o terminal para aplicar as novas configurações"
