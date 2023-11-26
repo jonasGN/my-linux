@@ -79,13 +79,19 @@ install_terminal_theme() {
   dconf write "$_TERMINAL_PROFILE_PATH/default" "'$terminalId'"
 }
 
-print_header "\nConfigurando terminal"
-print_info "Instalando dependências"
-sudo apt install -y zsh dconf-cli
+enable_zsh_shell() {
+  print_info "Instalando dependências"
+  sudo apt install -y zsh dconf-cli
 
-# TODO: fix zsh installation exit
-# print_info "Executando script de instalação do 'ohmyzhs'"
-# sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  print_info "Executando script de instalação do 'ohmyzhs'"
+  echo "Y" | sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+  print_info "Habilitando 'zsh' como shell padrão"
+  sudo chsh -s $(which zsh)
+}
+
+print_header "\nConfigurando terminal"
+enable_zsh_shell
 
 print_info "Aplicando tema para o terminal"
 install_terminal_theme

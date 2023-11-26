@@ -16,6 +16,16 @@ Após realizar o download do sistema, instale-o através do modo expert.
 
 ---
 
+# Instalação
+
+Após realizada a instalação limpa da distro, basta executar o comando abaixo para realizar a configuração automática do sistema:
+
+```bash
+$ sh -c "$(curl -fsSL https://raw.githubusercontent.com/jonasGN/my-linux/main/install.sh)"
+```
+
+---
+
 # Customização
 
 É possível customizar algumas configurações para realizar uma instalação alternativa. Para isso, é necessário criar um arquivo na raíz do projeto chamado **custom.conf**.
@@ -35,7 +45,3 @@ CUSTOM_UNINSTALL_PACKAGES=(
     "nome-do-pacote"
 )
 ```
-
-
-
-

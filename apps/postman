@@ -1,0 +1,8 @@
+TYPE="tar"
+URL="https://dl.pstmn.io/download/latest/linux64"
+
+mkdir -p postman &&
+  tar -xf ["nome do arquivo"] -C postman --strip-components 1 &&
+  sudo mv postman /opt/ &&
+  echo "[Desktop Entry]\nEncoding=UTF-8\nType=Application\nTerminal=false\nExec=/opt/postman/Postman\nName=Postman\nIcon=/opt/postman/app/icons/icon_128x128.png\n" \
+    >>~/.local/share/applications/postman.desktop

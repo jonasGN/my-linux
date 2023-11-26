@@ -1,0 +1,3 @@
+# curl -f -L https://www.torproject.org/download/ | grep -Eo "/dist/torbrowser/\S+?\""
+
+<!-- (\/dist\/torbrowser\/).*(tar.xz$) -->
